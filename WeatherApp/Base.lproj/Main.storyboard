@@ -44,7 +44,6 @@
                                 <connections>
                                     <outlet property="cityName" destination="ZO0-ak-esA" id="k5f-dj-lSF"/>
                                     <outlet property="cityTemp" destination="CQU-2G-7pI" id="1Ex-WC-I8s"/>
-                                    <segue destination="hRW-36-hcN" kind="show" identifier="performSegue" id="LZO-xO-n9F"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -70,6 +69,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cityTableView" destination="xCi-8L-vGv" id="p2k-fX-oeA"/>
+                        <segue destination="hRW-36-hcN" kind="show" identifier="goDetailSegue" id="cnj-F0-5hG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7KX-s1-VeV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -95,7 +95,7 @@
         <!--DetailVC View Controller-->
         <scene sceneID="iKu-0p-Q7A">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="hRW-36-hcN" customClass="detailVCViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="hRW-36-hcN" customClass="detailVCViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UcV-og-70W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

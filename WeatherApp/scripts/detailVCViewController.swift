@@ -35,13 +35,23 @@ class detailVCViewController: UIViewController {
                 let json = JSON(value)
                 let name = json["location"]["name"].stringValue
                 let temp = json["current"]["temp_c"].doubleValue
+                let datetime = json["location"]["localtime"].stringValue
                 let country = json["location"]["country"].stringValue
-                let weathreURLString = "http:\(json["location"][0]["icon"].stringValue)"
+                let weatherURLString = "http:\(json["current"]["condition"]["icon"].stringValue)"
+                
+                let dateFormatterGet = DateFormatter()
+                dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm"
+
+                let dateFormatterPrint = DateFormatter()
+                dateFormatterPrint.dateFormat = "dd.MMM.yyyy"
+                var time = dateFormatterGet.date(from: datetime)
                 
                 self.cityLabel.text = name
                 self.tempLabel.text = String(temp)
+                self.dateLabel.text = "\(dateFormatterPrint.string(from: time!))"
+                self.dayLabel.text = String(country)
                 
-                let weatherURL = URL(string: weathreURLString)
+                let weatherURL = URL(string: weatherURLString)
                 if let data = try? Data(contentsOf: weatherURL!){
                     self.imageWeather.image = UIImage(data: data)
                 }
@@ -51,16 +61,4 @@ class detailVCViewController: UIViewController {
             }
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
