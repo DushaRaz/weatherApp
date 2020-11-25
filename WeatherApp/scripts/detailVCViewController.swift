@@ -6,13 +6,48 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class detailVCViewController: UIViewController {
-
+    
+    var cityName = ""
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var imageWeather: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currentWeather(city: cityName)
         // Do any additional setup after loading the view.
+    }
+    
+    func currentWeather(city: String){
+        let url = "http://api.weatherapi.com/v1/current.json?key=5e0c557a8564411e8c883533202511&q=London"
+        
+        AF.request(url, method: .get).validate().responseJSON {response in
+            switch response.result{
+            case .success(let value):
+                let json = JSON(value)
+                let name = json["location"]["name"].stringValue
+                let temp = json["current"]["temp_c"].doubleValue
+                let country = json["location"]["country"].stringValue
+                let weathreURLString = "http:\(json["location"][0]["icon"].stringValue)"
+                
+                self.cityLabel.text = name
+                self.tempLabel.text = String(temp)
+                
+                let weatherURL = URL(string: weathreURLString)
+                if let data = try? Data(contentsOf: weatherURL!){
+                    self.imageWeather.image = UIImage(data: data)
+                }
+                print(value)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
 
