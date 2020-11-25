@@ -21,12 +21,14 @@ class detailVCViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentWeather(city: cityName)
+        print("123")
+        print(cityName)
         // Do any additional setup after loading the view.
     }
     
     func currentWeather(city: String){
-        let url = "http://api.weatherapi.com/v1/current.json?key=5e0c557a8564411e8c883533202511&q=London"
-        
+        let url = "http://api.weatherapi.com/v1/current.json?key=5e0c557a8564411e8c883533202511&q=\(city)"
+        print(url)
         AF.request(url, method: .get).validate().responseJSON {response in
             switch response.result{
             case .success(let value):

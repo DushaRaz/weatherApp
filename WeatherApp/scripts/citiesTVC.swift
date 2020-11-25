@@ -32,9 +32,12 @@ class citiesTVC: UITableViewController {
             case .success(let value):
                 let json = JSON(value)
                 let name = json["location"]["name"].stringValue
+                print(name)
                 let temp = json["current"]["temp_c"].doubleValue
+                print(temp)
                 self.cityTempArray.append(Cities(cityName: name, cityTemp: temp))
                 self.cityTableView.reloadData()
+                
             case .failure(let error):
                 print(error)
             }
@@ -96,7 +99,9 @@ class citiesTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        print("321")
         cityName = cityTempArray[indexPath.row].cityName
+        print(cityTempArray[indexPath.row].cityName)
         performSegue(withIdentifier: "detailVCViewController", sender: self)
     }
     
